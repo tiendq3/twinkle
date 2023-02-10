@@ -35,7 +35,8 @@ public class FileServiceIT {
     @Test
     public void uploadFileTest() {
         uploadFileService.uploadFile(file);
-        File fileDB = fileRepository.findByName("test.jpg");
+        var ofileDB = fileRepository.findByName("test.jpg");
+        var fileDB = ofileDB.get();
         java.io.File fileServer = new java.io.File(fileDB.getPath());
 
         Assertions.assertTrue(fileServer.exists());

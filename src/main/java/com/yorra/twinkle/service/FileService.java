@@ -1,6 +1,6 @@
 package com.yorra.twinkle.service;
 
-import com.yorra.twinkle.exceptionhandler.NotFoundFileException;
+import com.yorra.twinkle.exception.NotFoundFileException;
 import com.yorra.twinkle.model.File;
 import com.yorra.twinkle.repository.FileRepository;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+// LOMBOK
 public class FileService {
     private final FileRepository fileRepository;
 

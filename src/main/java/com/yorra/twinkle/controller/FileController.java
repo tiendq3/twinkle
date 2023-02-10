@@ -9,7 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+// Lombok
 public class FileController {
+
+    // Log - level INFO, TRACE
+
     private final UploadFileService uploadFileService;
     private final FileService fileService;
 
@@ -18,11 +22,16 @@ public class FileController {
         this.fileService = fileService;
     }
 
+    // path api /api/v1/management/files
+    // Paging
+    // Page<File>
     @GetMapping("/files")
     public List<String> getAllFile() {
+        // log.info("GET all file request")
         return fileService.getAllFile();
     }
 
+    // return File
     @PostMapping("file/upload")
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadFile(@RequestParam("file") MultipartFile file) {
@@ -33,4 +42,6 @@ public class FileController {
     public void deleteFile(@PathVariable Long id) {
         fileService.deleteFile(id);
     }
+
+    // GetById
 }

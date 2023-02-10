@@ -3,6 +3,7 @@ package com.yorra.twinkle.service;
 import com.yorra.twinkle.model.File;
 import com.yorra.twinkle.model.enums.EFileType;
 import com.yorra.twinkle.repository.FileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,15 +11,21 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UploadFileService {
     private final FileRepository fileRepository;
 
+    @Autowired
+    List<FileResourceService> uploadService;
+
     public UploadFileService(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
+    // Format
     @Transactional
     public void uploadFile(MultipartFile file) {
         if (file == null) return;
@@ -30,6 +37,9 @@ public class UploadFileService {
         newFile.setSize(file.getSize());
         String[] names = file.getOriginalFilename().split("\\.");
         newFile.setExt(names[names.length - 1]);
+
+        uploadService.forEach(it -> it.uploadFile(file));
+
         newFile.setPath(downloadFile(file));
         fileRepository.save(newFile);
         System.out.println(newFile);
@@ -39,9 +49,12 @@ public class UploadFileService {
         String[] names = fileDown.getOriginalFilename().split("\\.");
         int lengthOriginName = fileDown.getOriginalFilename().length();
 
+        // UUID.randomUUID().toString();
+
         String name = fileDown.getOriginalFilename().substring(0, lengthOriginName - names[names.length - 1].length() - 1);
         String ext = names[names.length - 1];
 
+        // hard coded
         String path = "src/main/resources/images/" + name + "." + ext;
         java.io.File file = new java.io.File(path);
 

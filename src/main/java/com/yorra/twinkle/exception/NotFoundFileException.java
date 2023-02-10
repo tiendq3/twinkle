@@ -1,4 +1,4 @@
-package com.yorra.twinkle.exceptionhandler;
+package com.yorra.twinkle.exception;
 
 public class NotFoundFileException extends RuntimeException {
     public NotFoundFileException() {

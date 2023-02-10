@@ -19,6 +19,7 @@ public class File implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // UUID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
