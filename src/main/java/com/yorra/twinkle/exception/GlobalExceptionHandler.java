@@ -4,19 +4,25 @@ import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededExceptio
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(FileSizeLimitExceededException.class)
-    public ResponseEntity<?> handlerMaximumFileException() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("maximum file size: 1MB ");
+    public ResponseEntity<ExceptionResponseMessage> create(HttpStatus httpStatus, Exception e, HttpServletRequest request) {
+        ExceptionResponseMessage exceptionResponseMessage = new ExceptionResponseMessage(httpStatus.value(), e.getMessage(), request.getRequestURI(), httpStatus.getReasonPhrase());
+        return ResponseEntity.status(httpStatus).body(exceptionResponseMessage);
     }
 
-    @ExceptionHandler(NotFoundFileException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handlerNotFoundFileException() {
+    @ExceptionHandler
+    public ResponseEntity<ExceptionResponseMessage> handlerMaximumFileException(FileSizeLimitExceededException e, HttpServletRequest request) {
+        return create(HttpStatus.BAD_REQUEST, e, request);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponseMessage> handlerException(Exception e, HttpServletRequest request) {
+        return create(HttpStatus.INTERNAL_SERVER_ERROR, e, request);
     }
 
     // statusCode

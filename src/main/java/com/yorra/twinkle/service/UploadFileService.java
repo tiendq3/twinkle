@@ -3,7 +3,7 @@ package com.yorra.twinkle.service;
 import com.yorra.twinkle.model.File;
 import com.yorra.twinkle.model.enums.EFileType;
 import com.yorra.twinkle.repository.FileRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,18 +12,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.UUID;
 
 @Service
+@Data
 public class UploadFileService {
     private final FileRepository fileRepository;
-
-    @Autowired
-    List<FileResourceService> uploadService;
-
-    public UploadFileService(FileRepository fileRepository) {
-        this.fileRepository = fileRepository;
-    }
+    private final List<FileResourceService> uploadService;
 
     // Format
     @Transactional
@@ -38,7 +32,7 @@ public class UploadFileService {
         String[] names = file.getOriginalFilename().split("\\.");
         newFile.setExt(names[names.length - 1]);
 
-        uploadService.forEach(it -> it.uploadFile(file));
+//        uploadService.forEach(it -> it.uploadFile(file));
 
         newFile.setPath(downloadFile(file));
         fileRepository.save(newFile);

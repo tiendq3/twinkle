@@ -2,7 +2,6 @@ package com.yorra.twinkle.service;
 
 import com.yorra.twinkle.model.File;
 import com.yorra.twinkle.repository.FileRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
