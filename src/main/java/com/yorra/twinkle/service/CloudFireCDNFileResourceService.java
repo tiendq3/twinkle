@@ -16,4 +16,9 @@ public class CloudFireCDNFileResourceService implements FileResourceService {
     public Resource downloadFile(Long id) {
         return null;
     }
+
+    @Override
+    public Resource downloadFile(MultipartFile fileDown) {
+        return null;
+    }
 }

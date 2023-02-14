@@ -11,4 +11,6 @@ public interface FileResourceService {
     File uploadFile(MultipartFile inputFile);
 
     Resource downloadFile(Long id);
+
+    Resource downloadFile(MultipartFile fileDown);
 }
