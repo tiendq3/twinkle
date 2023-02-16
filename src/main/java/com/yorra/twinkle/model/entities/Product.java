@@ -1,4 +1,4 @@
-package com.yorra.twinkle.model;
+package com.yorra.twinkle.model.entities;
 
 import lombok.*;
 
@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -14,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "product")
+@Table(name = "products")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +35,7 @@ public class Product implements Serializable {
     @Column(name = "description")
     private String description;
 
-
+    @Column(name = "available")
     private boolean available;
 
     @Column(name = "created_at")
@@ -49,4 +50,10 @@ public class Product implements Serializable {
 
     private double rate;
 
+    @OneToMany(mappedBy = "product")
+    private Set<Characteristic> characteristicSet;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

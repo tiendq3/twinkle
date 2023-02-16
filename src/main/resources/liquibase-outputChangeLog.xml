@@ -1,0 +1,93 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="Admin (generated)" id="1676556537808-1">
+        <createTable tableName="categories">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Admin (generated)" id="1676556537808-2">
+        <createTable tableName="characteristics">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="color" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="height" type="INT"/>
+            <column name="size" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="INT"/>
+            <column name="product_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Admin (generated)" id="1676556537808-3">
+        <createTable tableName="files">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ext" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Admin (generated)" id="1676556537808-4">
+        <createTable tableName="products">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="available" type="BIT(1)"/>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="created_at" type="datetime"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rate" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_at" type="datetime"/>
+            <column name="category_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Admin (generated)" id="1676556537808-5">
+        <createIndex indexName="FKjkvxd4glluwhfu085ksnyk6pl" tableName="characteristics">
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Admin (generated)" id="1676556537808-6">
+        <createIndex indexName="FKog2rp4qthbtt2lfyhfo32lsw9" tableName="products">
+            <column name="category_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Admin (generated)" id="1676556537808-7">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="characteristics" constraintName="FKjkvxd4glluwhfu085ksnyk6pl" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="products" validate="true"/>
+    </changeSet>
+    <changeSet author="Admin (generated)" id="1676556537808-8">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="products" constraintName="FKog2rp4qthbtt2lfyhfo32lsw9" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="categories" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

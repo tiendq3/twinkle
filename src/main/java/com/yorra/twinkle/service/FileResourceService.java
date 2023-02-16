@@ -1,16 +1,13 @@
 package com.yorra.twinkle.service;
 
-import com.yorra.twinkle.model.File;
-import org.springframework.core.io.Resource;
+import com.yorra.twinkle.model.entities.File;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  *
  */
 public interface FileResourceService {
-    File uploadFile(MultipartFile inputFile);
-
-    Resource downloadFile(Long id);
-
-    Resource downloadFile(MultipartFile fileDown);
+    List<File> uploadFile(MultipartFile[] inputFiles);
 }

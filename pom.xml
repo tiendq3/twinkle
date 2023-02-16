@@ -20,7 +20,6 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>3.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -63,7 +62,6 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.4.1</version>
                 <configuration>
                     <propertyFile>src/main/resources/liquibase.properties</propertyFile>
                 </configuration>

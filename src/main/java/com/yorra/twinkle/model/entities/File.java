@@ -1,15 +1,16 @@
-package com.yorra.twinkle.model;
+package com.yorra.twinkle.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yorra.twinkle.model.enums.EFileType;
 import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "file")
+@Table(name = "files")
 @Getter
 @Setter
 @NoArgsConstructor
