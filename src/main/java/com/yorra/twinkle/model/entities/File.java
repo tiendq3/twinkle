@@ -47,5 +47,5 @@ public class File implements Serializable {
 
     @Column(name = "size")
     @NotNull
-    private long size;
+    private Long size;
 }

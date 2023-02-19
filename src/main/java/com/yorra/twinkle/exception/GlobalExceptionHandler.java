@@ -4,6 +4,7 @@ import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededExceptio
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponseMessage> handlerException(Exception e, HttpServletRequest request) {
         return create(HttpStatus.INTERNAL_SERVER_ERROR, e, request);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ExceptionResponseMessage> handlerNotFoundException(NotFoundException e, HttpServletRequest request) {
+        return create(HttpStatus.NOT_FOUND, e, request);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionResponseMessage> handlerBadRequestException(BadRequestException e, HttpServletRequest request) {
+        return create(HttpStatus.NOT_FOUND, e, request);
     }
 
     // statusCode

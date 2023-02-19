@@ -1,8 +1,6 @@
 package com.yorra.twinkle.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.yorra.twinkle.model.enums.EColor;
-import com.yorra.twinkle.model.enums.ESize;
+import com.yorra.twinkle.model.enums.ECharacteristicType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,26 +22,14 @@ public class Characteristic implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "size")
+    @Column(name = "characteristic_type")
     @NotNull
-    private ESize sizeEnum;
+    private ECharacteristicType characteristicType;
 
-    @Column(name = "color")
+    @Column(name = "value")
     @NotNull
-    private EColor colorEnum;
+    private String value;
 
-    @Column(name = "amount")
-    @NotNull
-    private int amount;
-
-    @Column(name = "height")
-    private int height;
-
-    @Column(name = "weight")
-    private int weight;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    @JsonBackReference
-    private Product product;
+    @Column(name = "qualifier")
+    private String qualifier;
 }

@@ -1,7 +1,7 @@
 package com.yorra.twinkle.service;
 
 import com.yorra.twinkle.repository.FileRepository;
-import com.yorra.twinkle.service.entities.FileService;
+import com.yorra.twinkle.service.entities.FileServiceImpl;
 import com.yorra.twinkle.service.other.LocalStorageFileResourceService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,12 +16,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @SpringBootTest
-public class FileServiceIT {
+public class FileServiceImplIT {
     @Autowired
     private LocalStorageFileResourceService uploadFileService;
 
     @Autowired
-    private FileService fileService;
+    private FileServiceImpl fileServiceImpl;
     @Autowired
     private FileRepository fileRepository;
     private MultipartFile[] files;
@@ -47,7 +47,7 @@ public class FileServiceIT {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        fileService.deleteFile(fileDB.getId());
+        fileServiceImpl.deleteFile(fileDB.getId());
     }
 
 }

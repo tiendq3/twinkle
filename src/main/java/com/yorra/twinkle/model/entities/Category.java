@@ -1,12 +1,10 @@
 package com.yorra.twinkle.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -23,14 +21,10 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 500)
     @NotNull
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 500)
     private String description;
-
-    @OneToMany(mappedBy = "category")
-    @JsonBackReference
-    private Set<Product> products;
 }

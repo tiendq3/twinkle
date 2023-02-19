@@ -46,7 +46,7 @@ public class LocalStorageFileResourceService implements FileResourceService {
             String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
             newFile.setExt(fileExtension);
 
-            String randomName = UUID.randomUUID().toString() + "." + fileExtension;
+            String randomName = UUID.randomUUID() + "." + fileExtension;
             newFile.setName(randomName);
             newFile.setSize(file.getSize());
 
