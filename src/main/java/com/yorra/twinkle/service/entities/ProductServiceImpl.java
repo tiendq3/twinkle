@@ -50,10 +50,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void insertProduct(ProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
-        product.setRate(0);
-        product.setAvailable(false);
-        product.setCreatedAt(new Date());
-        product.setUpdatedAt(new Date());
+        product.setRating((double) 0);
+        product.setIsAvailable(false);
+        product.setCreatedAt(new Date().toInstant());
+        product.setUpdatedAt(new Date().toInstant());
         productRepository.save(product);
     }
 
@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) throw new NotFoundException("not found product by " + id);
         product = modelMapper.map(productDTO, Product.class);
-        product.setUpdatedAt(new Date());
+        product.setUpdatedAt(new Date().toInstant());
         productRepository.save(product);
     }
 
