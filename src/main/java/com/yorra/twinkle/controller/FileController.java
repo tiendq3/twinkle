@@ -3,7 +3,7 @@ package com.yorra.twinkle.controller;
 import com.yorra.twinkle.model.entities.File;
 import com.yorra.twinkle.service.entities.FileServiceImpl;
 import com.yorra.twinkle.service.other.LocalStorageFileResourceService;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@Data
+@AllArgsConstructor
 @RequestMapping("/api/v1")
 public class FileController {
     private final LocalStorageFileResourceService uploadFileService;
@@ -43,7 +43,6 @@ public class FileController {
     @PostMapping("/management/files/upload")
     @ResponseStatus(HttpStatus.CREATED)
     public List<File> uploadFile(@RequestParam("files") MultipartFile[] files) {
-        System.out.println(files[0].getContentType());
         return uploadFileService.uploadFile(files);
     }
 

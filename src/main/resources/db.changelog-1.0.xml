@@ -1,0 +1,219 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="Tien" id="1">
+        <createTable tableName="categories">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="name" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="2">
+        <createTable tableName="characteristics">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="characteristic_type" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="qualifier" type="VARCHAR(255)"/>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="3">
+        <createTable tableName="files">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ext" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="4">
+        <createTable tableName="products">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created_at" type="datetime"/>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="final_price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_available" type="BOOLEAN"/>
+            <column name="model_height" type="DOUBLE"/>
+            <column name="model_weight" type="DOUBLE"/>
+            <column name="name" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rate" type="DOUBLE"/>
+            <column name="sku" type="VARCHAR(255)"/>
+            <column name="update_at" type="datetime"/>
+            <column name="category_id" type="BIGINT"/>
+            <column name="thumbnail" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="5">
+        <createTable tableName="products_characteristics">
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="characteristic_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="6">
+        <createTable tableName="products_files">
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="files_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="7">
+        <createTable tableName="storages">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="amount" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="8">
+        <createTable tableName="storages_characteristics">
+            <column name="storage_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="characteristic_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="10">
+        <createTable tableName="storages_products">
+            <column name="storage_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="products_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tien" id="11">
+        <createIndex indexName="FK1vneiytjk0f09a86o8afgp6vg" tableName="products_files">
+            <column name="files_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Tien" id="12">
+        <createIndex indexName="FK6kt05v109cqiytg2tn6mflijm" tableName="storages_products">
+            <column name="storage_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Tien" id="13">
+        <createIndex indexName="FKilh0kykujib9acpex9el8fn02" tableName="storages_characteristics">
+            <column name="storage_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Tien" id="14">
+        <createIndex indexName="FKjtuqpwwhuc71pop1sy7k9ilwd" tableName="products">
+            <column name="thumbnail"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Tien" id="16">
+        <createIndex indexName="FKod3ppkvdiqbm91b6fxuvx6mf4" tableName="products_characteristics">
+            <column name="characteristic_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Tien" id="17">
+        <createIndex indexName="FKog2rp4qthbtt2lfyhfo32lsw9" tableName="products">
+            <column name="category_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Tien" id="18">
+        <addForeignKeyConstraint baseColumnNames="files_id" baseTableName="products_files"
+                                 constraintName="FK1vneiytjk0f09a86o8afgp6vg" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="files" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="19">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="products_characteristics"
+                                 constraintName="FK2amrs2p41wkc6tdhrx9ge3j98" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="products" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="20">
+        <addForeignKeyConstraint baseColumnNames="storage_id" baseTableName="storages_products"
+                                 constraintName="FK6kt05v109cqiytg2tn6mflijm" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="storages" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="21">
+        <addForeignKeyConstraint baseColumnNames="storage_id" baseTableName="storages_characteristics"
+                                 constraintName="FKilh0kykujib9acpex9el8fn02" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="storages" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="22">
+        <addForeignKeyConstraint baseColumnNames="thumbnail" baseTableName="products"
+                                 constraintName="FKjtuqpwwhuc71pop1sy7k9ilwd" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="files" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="24">
+        <addForeignKeyConstraint baseColumnNames="characteristic_id" baseTableName="products_characteristics"
+                                 constraintName="FKod3ppkvdiqbm91b6fxuvx6mf4" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="characteristics" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="26">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="products"
+                                 constraintName="FKog2rp4qthbtt2lfyhfo32lsw9" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="categories" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="27">
+        <addForeignKeyConstraint baseColumnNames="products_id" baseTableName="storages_products"
+                                 constraintName="FKprm399nr1mhjcet93oft9ebda" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="products" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="28">
+        <addForeignKeyConstraint baseColumnNames="characteristic_id"
+                                 baseTableName="storages_characteristics"
+                                 constraintName="FKq4oer9urxj2yeunu7e6y0pnl0" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="characteristics" validate="true"/>
+    </changeSet>
+    <changeSet author="Tien" id="29">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="products_files"
+                                 constraintName="FKsc70rmiap93vysj7ak1nxvx4j" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="products" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Set;
 
 @Data
@@ -17,32 +17,37 @@ import java.util.Set;
 @AllArgsConstructor
 public class ProductDTO {
 
+    private Long id;
+
     @Size(max = 255)
     @NotNull
     private String name;
 
-    private String code;
+    @Size(max = 255)
+    private String sku;
 
-    @Size(max = 5000)
+    @Size(max = 500)
     private String description;
 
-    private boolean available;
+    private Boolean isAvailable;
 
-    private Date createdAt;
+    private Instant createdAt;
 
-    private Date updatedAt;
-
-    @NotNull
-    private double price;
+    private Instant updatedAt;
 
     @NotNull
-    private double finalPrice;
+    private Double price;
 
-    private int height;
+    @NotNull
+    private Double finalPrice;
 
-    private int weight;
+    private Double rating;
 
-    private Set<Characteristic> characteristicSet;
+    private Double modelHeight;
+
+    private Double modelWeight;
+
+    private Set<Characteristic> characteristics;
 
     private Category category;
 

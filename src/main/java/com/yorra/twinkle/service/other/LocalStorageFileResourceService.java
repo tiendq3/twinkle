@@ -4,25 +4,22 @@ import com.yorra.twinkle.model.entities.File;
 import com.yorra.twinkle.model.enums.EFileType;
 import com.yorra.twinkle.repository.FileRepository;
 import com.yorra.twinkle.service.FileResourceService;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Data
+@AllArgsConstructor
 public class LocalStorageFileResourceService implements FileResourceService {
     private final FileRepository fileRepository;
 
-    //    private final List<FileResourceService> uploadService;
     @Transactional
     public List<File> uploadFile(MultipartFile[] files) {
         if (files == null || files.length == 0) throw new RuntimeException("file mustn't null");
@@ -50,33 +47,19 @@ public class LocalStorageFileResourceService implements FileResourceService {
             newFile.setName(randomName);
             newFile.setSize(file.getSize());
 
-
             //hard code
-            newFile.setPath("src/main/resources/images/" + randomName);
+            String filePath = "src/main/resources/images/" + randomName;
+            newFile.setPath(filePath);
             fileRepository.save(newFile);
             fileList.add(newFile);
+
+            //download file
             try {
-                downloadFile(newFile.getId(), file.getBytes());
+                file.transferTo(Paths.get(filePath));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
         return fileList;
-    }
-
-    public File downloadFile(Long id, byte[] bytes) {
-        Optional<File> optionalFile = fileRepository.findById(id);
-        if (optionalFile.isEmpty()) throw new RuntimeException("upload/download error");
-        File file = optionalFile.get();
-
-        String path = file.getPath();
-        java.io.File fileDown = new java.io.File(path);
-
-        try {
-            Files.write(Path.of(path), bytes);
-        } catch (IOException e) {
-            throw new RuntimeException("error file!");
-        }
-        return file;
     }
 }

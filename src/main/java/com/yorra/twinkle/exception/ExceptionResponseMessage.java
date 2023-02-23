@@ -8,8 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExceptionResponseMessage {
+
     private int status;
+
     private String reason;
+
     private String path;
+
     private String title;
 }

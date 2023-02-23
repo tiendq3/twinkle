@@ -3,7 +3,7 @@ package com.yorra.twinkle.service.entities;
 import com.yorra.twinkle.exception.NotFoundException;
 import com.yorra.twinkle.model.entities.File;
 import com.yorra.twinkle.repository.FileRepository;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-@Data
+@AllArgsConstructor
 public class FileServiceImpl {
     private final FileRepository fileRepository;
 

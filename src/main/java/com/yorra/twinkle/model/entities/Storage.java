@@ -21,10 +21,7 @@ public class Storage {
     private List<Product> products;
 
     @OneToMany
-    private List<Characteristic> characteristicColors;
+    private List<Characteristic> characteristics;
 
-    @OneToMany
-    private List<Characteristic> characteristicSizes;
-
-    private int amount;
+    private Long amount;
 }

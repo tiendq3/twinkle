@@ -6,7 +6,7 @@ import com.yorra.twinkle.model.entities.Product;
 import com.yorra.twinkle.repository.ProductRepository;
 import com.yorra.twinkle.service.ProductService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,11 +14,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Service
-@Data
 @AllArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -50,10 +50,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void insertProduct(ProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
-        product.setRating((double) 0);
+        product.setRating(0d);
         product.setIsAvailable(false);
-        product.setCreatedAt(new Date().toInstant());
-        product.setUpdatedAt(new Date().toInstant());
+        product.setCreatedAt(Instant.now());
+        product.setUpdatedAt(Instant.now());
         productRepository.save(product);
     }
 
@@ -61,13 +61,26 @@ public class ProductServiceImpl implements ProductService {
     public void updateProduct(Long id, ProductDTO productDTO) {
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) throw new NotFoundException("not found product by " + id);
-        product = modelMapper.map(productDTO, Product.class);
-        product.setUpdatedAt(new Date().toInstant());
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setFiles(productDTO.getFiles());
+        product.setThumbnail(productDTO.getThumbnail());
+        product.setCategory(productDTO.getCategory());
+        product.setCharacteristics(productDTO.getCharacteristics());
+        product.setPrice(productDTO.getPrice());
+        product.setFinalPrice(productDTO.getFinalPrice());
+        product.setModelHeight(productDTO.getModelHeight());
+        product.setModelWeight(productDTO.getModelWeight());
+        product.setUpdatedAt(Instant.now());
         productRepository.save(product);
     }
 
     @Override
-    public void deleteProduct(Long[] id) {
-
+    public void deleteProduct(Long[] ids) {
+        for (Long id : ids) {
+            Product product = productRepository.findById(id).orElse(null);
+            if (product == null) throw new NotFoundException("not found product by " + id);
+            productRepository.delete(product);
+        }
     }
 }

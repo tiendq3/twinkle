@@ -3,6 +3,7 @@ package com.yorra.twinkle.model.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -55,6 +57,7 @@ public class Product implements Serializable {
     private Double finalPrice;
 
     @Column(name = "rate")
+    @Max(5)
     private Double rating;
 
     @Column(name = "model_height")
@@ -64,7 +67,7 @@ public class Product implements Serializable {
     private Double modelWeight;
 
     @ManyToMany
-    private Set<Characteristic> characteristicSet;
+    private Set<Characteristic> characteristics;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
