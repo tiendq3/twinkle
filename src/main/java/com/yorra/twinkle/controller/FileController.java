@@ -1,6 +1,7 @@
 package com.yorra.twinkle.controller;
 
 import com.yorra.twinkle.model.entities.File;
+import com.yorra.twinkle.security.AuthoritiesConstants;
 import com.yorra.twinkle.service.entities.FileServiceImpl;
 import com.yorra.twinkle.service.other.LocalStorageFileResourceService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +27,7 @@ public class FileController {
 
 
     @GetMapping("/management/files")
+//    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Page<File>> getAllFile(@RequestParam(defaultValue = "0") int pageNumber,
                                                  @RequestParam(defaultValue = "10") int pageSize,
                                                  @RequestParam(defaultValue = "name") String[] properties,

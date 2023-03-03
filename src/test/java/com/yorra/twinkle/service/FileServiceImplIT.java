@@ -1,5 +1,6 @@
 package com.yorra.twinkle.service;
 
+import com.yorra.twinkle.model.entities.File;
 import com.yorra.twinkle.repository.FileRepository;
 import com.yorra.twinkle.service.entities.FileServiceImpl;
 import com.yorra.twinkle.service.other.LocalStorageFileResourceService;
@@ -22,6 +23,7 @@ public class FileServiceImplIT {
 
     @Autowired
     private FileServiceImpl fileServiceImpl;
+
     @Autowired
     private FileRepository fileRepository;
     private MultipartFile[] files;
@@ -35,9 +37,7 @@ public class FileServiceImplIT {
 
     @Test
     public void uploadFileTest() {
-        uploadFileService.uploadFile(files);
-        var oFileDB = fileRepository.findByName("test.jpg");
-        var fileDB = oFileDB.get();
+        File fileDB = uploadFileService.uploadFile(files).get(0);
         java.io.File fileServer = new java.io.File(fileDB.getPath());
 
         Assertions.assertTrue(fileServer.exists());
@@ -49,5 +49,4 @@ public class FileServiceImplIT {
         }
         fileServiceImpl.deleteFile(fileDB.getId());
     }
-
 }

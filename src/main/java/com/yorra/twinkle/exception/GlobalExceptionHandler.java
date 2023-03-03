@@ -21,10 +21,10 @@ public class GlobalExceptionHandler {
         return create(HttpStatus.BAD_REQUEST, e, request);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponseMessage> handlerException(Exception e, HttpServletRequest request) {
-        return create(HttpStatus.INTERNAL_SERVER_ERROR, e, request);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ExceptionResponseMessage> handlerException(Exception e, HttpServletRequest request) {
+//        return create(HttpStatus.INTERNAL_SERVER_ERROR, e, request);
+//    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionResponseMessage> handlerBadRequestException(BadRequestException e, HttpServletRequest request) {
-        return create(HttpStatus.NOT_FOUND, e, request);
+        return create(HttpStatus.BAD_REQUEST, e, request);
     }
 
     // statusCode
